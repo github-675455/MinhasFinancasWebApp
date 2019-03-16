@@ -3,7 +3,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build --prod
+RUN ng build --prod --build-optimizer
 FROM nginx:mainline-alpine
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=node /usr/src/app/dist/minhas-financas-webapp /usr/share/nginx/html
