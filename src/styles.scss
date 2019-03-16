@@ -4,6 +4,19 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.main-container {
+    padding: 20px
+}
+
+.card-opcao {
+    width: 300px;
+}
+
+/** Form **/
+.imput-full-width {
+    width: 100%;
+}
+
 .sidenav-container {
     height: 100%;
   }
@@ -25,11 +38,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   table {
     width: 100%;
   }
-  
-
-  .ex {
-      padding: 30px
-  }
 
   .example-icon {
     padding: 0 14px;
@@ -39,7 +47,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     flex: 1 1 auto;
   }
 
-    
+   
 .mat-card {    
     text-align: -webkit-center;    
 }    
