@@ -1,10 +1,19 @@
-<div class="ex">
-    <mat-toolbar color="primary">
-        <mat-toolbar-row>                
-            <mat-icon class="example-icon">favorite</mat-icon>
-            <mat-icon class="example-icon">delete</mat-icon>
-          </mat-toolbar-row>
-    </mat-toolbar>
+<div class="main-container">
+
+  <h3>Contas</h3>
+  
+  <mat-card class="card-opcao"  (click)="openDialog()">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Cadastrar Conta</mat-card-title>        
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        Faça o cadastro das contas. blablablabla
+      </p>
+    </mat-card-content>    
+  </mat-card>
+
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

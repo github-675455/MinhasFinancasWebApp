@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { ContaModalAddComponent } from '../conta-modal-add/conta-modal-add.component';
 
 export interface PeriodicElement {
   name: string;
@@ -20,7 +22,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
 ];
 
-
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-conta',
@@ -31,10 +36,18 @@ export class ContaComponent implements OnInit {
   
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
+
+  animal: string;
+  name: string;
   
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ContaModalAddComponent, {
+      width: '650px'      
+    });
+  }
 }
