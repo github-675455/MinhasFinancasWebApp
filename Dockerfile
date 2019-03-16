@@ -3,6 +3,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 COPY . .
+RUN npm link @angular/cli
 RUN ng build --prod --build-optimizer
 FROM nginx:mainline-alpine
 RUN rm -rf /usr/share/nginx/html/*
