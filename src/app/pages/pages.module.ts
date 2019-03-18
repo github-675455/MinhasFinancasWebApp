@@ -5,18 +5,23 @@ import { UsuarioComponent } from './usuario/usuario.component';
 import { MaterialModule } from '../share/material.module';
 import { ContaAddComponent } from './conta-add/conta-add.component';
 import { ContaModalAddComponent } from './conta-modal-add/conta-modal-add.component';
+import { AutenticacaoComponent } from './autenticacao/autenticacao.component';
+import { FormsModule } from '@angular/forms';
+import { StatusComponent } from './status/status.component';
 
 @NgModule({
-  declarations: [ContaComponent, UsuarioComponent, ContaAddComponent, ContaModalAddComponent],
+  declarations: [ContaComponent, UsuarioComponent, ContaAddComponent, ContaModalAddComponent, AutenticacaoComponent, StatusComponent],
   imports: [
+    FormsModule,
     CommonModule,
     MaterialModule
   ],
    exports: [
-     ContaComponent, 
+     ContaComponent,
      ContaModalAddComponent,
      UsuarioComponent,
-     ContaAddComponent
+     ContaAddComponent,
+     AutenticacaoComponent
    ],
    entryComponents: [ContaModalAddComponent]
 })

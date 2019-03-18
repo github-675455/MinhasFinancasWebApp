@@ -1,6 +1,12 @@
 <mat-toolbar color="primary">
-    <mat-toolbar-row>                
-        <mat-icon class="example-icon">favorite</mat-icon>
-        <mat-icon class="example-icon">delete</mat-icon>
-      </mat-toolbar-row>
+  <mat-toolbar-row>
+    <mat-icon class="example-icon">favorite</mat-icon>
+    <span class="fill-remaining-space"></span>
+    <mat-icon class="example-icon">delete</mat-icon>
+    <button mat-button [matMenuTriggerFor]="menu"><mat-icon class="example-icon">account_circle</mat-icon></button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="autenticar()" *ngIf="!isAutenticado">Entrar</button>
+      <button mat-menu-item (click)="desconectar()" *ngIf="isAutenticado">Sair</button>
+    </mat-menu>
+  </mat-toolbar-row>
 </mat-toolbar>

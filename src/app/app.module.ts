@@ -8,12 +8,13 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MaterialModule } from './share/material.module';
 import { LayoutsModule } from './layouts/layouts.module';
 import { PagesModule } from './pages/pages.module';
-
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AutenticacaoService } from './services/autenticacao.service';
+import { AutenticacaoInterceptor } from './interceptors/autenticacao-interceptor';
 
 @NgModule({
-  declarations: [
-    AppComponent    
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -21,9 +22,18 @@ import { PagesModule } from './pages/pages.module';
     LayoutModule,
     MaterialModule,
     LayoutsModule,
-    PagesModule   
+    PagesModule,
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AutenticacaoService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AutenticacaoInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
