@@ -1,6 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatCardModule, MatTableModule, MatMenuModule, MatFormFieldModule, MatSelectModule, MatInputModule, MatDatepicker, MatDatepickerModule, MatNativeDateModule, MatRadioModule, MatOptionModule, MatSlideToggleModule, MatCheckboxModule } from '@angular/material';
+import {
+  MatToolbarModule,
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatListModule,
+  MatCardModule,
+  MatTableModule,
+  MatMenuModule,
+  MatFormFieldModule,
+  MatSelectModule,
+  MatInputModule,
+  MatDatepicker,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatRadioModule,
+  MatOptionModule,
+  MatSlideToggleModule,
+  MatCheckboxModule,
+  MatProgressSpinnerModule,
+  MatSnackBarModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [],
@@ -16,13 +37,15 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
     MatMenuModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule,    
-    MatDatepickerModule,        
-    MatNativeDateModule,      
-    MatRadioModule,          
-    MatOptionModule,      
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule,
+    MatOptionModule,
     MatSlideToggleModule,
-    MatCheckboxModule      
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
   exports: [
     CommonModule,
@@ -36,13 +59,15 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, Mat
     MatMenuModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule,    
+    MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule,      
-    MatRadioModule,          
-    MatOptionModule,      
+    MatNativeDateModule,
+    MatRadioModule,
+    MatOptionModule,
     MatSlideToggleModule,
-    MatCheckboxModule  
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ]
 })
-export class MaterialModule { }
+export class MaterialModule {}
