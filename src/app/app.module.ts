@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AutenticacaoService } from './services/autenticacao.service';
 import { AutenticacaoInterceptor } from './interceptors/autenticacao-interceptor';
+import { AuthGuard } from './guards/auth-guard.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +33,8 @@ import { AutenticacaoInterceptor } from './interceptors/autenticacao-interceptor
       provide: HTTP_INTERCEPTORS,
       useClass: AutenticacaoInterceptor,
       multi: true
-    }
+    },
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
