@@ -33,7 +33,7 @@ export class AutenticacaoService {
   }
 
   isAutenticado() {
-    return typeof this.accessToken !== 'undefined' && this.accessToken !== null;
+    return typeof this.accessToken !== 'undefined' && this.accessToken !== '';
   }
 
   getAccessToken() {
@@ -47,6 +47,7 @@ export class AutenticacaoService {
   logout() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('expires_at');
+    this.accessToken = '';
     this.emitAutenticado(false);
   }
 

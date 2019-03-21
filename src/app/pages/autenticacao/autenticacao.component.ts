@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 import { AccessToken } from 'src/app/model/access-token';
 import { SubscriptionLike } from 'rxjs';
@@ -16,15 +16,22 @@ export class AutenticacaoComponent implements OnInit, OnDestroy {
   senha: string;
   showSpinner: boolean;
   isAutenticado: boolean;
+  returnUrl: string;
   subscriptions: SubscriptionLike[] = [];
 
   constructor(
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private autenticacaoService: AutenticacaoService,
     private snackBar: MatSnackBar
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.returnUrl = this.activatedRoute.snapshot.queryParamMap.get('returnUrl');
+    this.activatedRoute.queryParamMap.subscribe(queryParams => {
+      this.returnUrl = queryParams.get('returnUrl');
+    })
+  }
 
   ngOnDestroy() {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
@@ -36,7 +43,13 @@ export class AutenticacaoComponent implements OnInit, OnDestroy {
       this.autenticacaoService.login(this.login, this.senha).subscribe(
         (data: AccessToken) => {
           this.autenticacaoService.saveAccessToken(data);
-          this.router.navigateByUrl('/');
+
+          if (this.returnUrl !== null) {
+            this.router.navigateByUrl(`/${this.returnUrl}`);
+          } else {
+            this.router.navigateByUrl('/');
+          }
+
           this.snackBar.open('Autenticado com sucesso!', 'Ignorar', {
             duration: 5000
           });

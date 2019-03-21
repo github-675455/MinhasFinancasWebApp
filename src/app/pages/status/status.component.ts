@@ -2,15 +2,28 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { interval, Subscription } from 'rxjs';
+import { trigger, state, transition, animate, style } from '@angular/animations';
 
 @Component({
   selector: 'app-status',
   templateUrl: './status.component.html',
-  styleUrls: ['./status.component.sass']
+  styleUrls: ['./status.component.sass'],
+  animations: [
+    trigger('changeColor', [
+      state('off', style({
+          color: '#ddd'
+      })),
+      state('on', style({
+        color: 'red'
+      })),
+      transition('off => on', animate('2s')),
+      transition('on => off', animate('2s'))
+    ])
+  ]
 })
 export class StatusComponent implements OnInit, OnDestroy {
   status = '';
-  isActive = false;
+  isActive = 'off';
   private subscribe: Subscription;
 
   constructor(private http: HttpClient) {}
@@ -32,15 +45,15 @@ export class StatusComponent implements OnInit, OnDestroy {
       (data: any) => {
         if (data.status === 'Healthy') {
           this.status = 'Funcionando normalmente';
-          this.isActive = true;
+          this.isActive = 'on';
         } else {
           this.status = 'Indisponível';
-          this.isActive = false;
+          this.isActive = 'off';
         }
       },
       (error: any) => {
         this.status = 'Indisponível';
-        this.isActive = false;
+        this.isActive = 'off';
       }
     );
   }

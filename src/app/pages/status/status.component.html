@@ -1,7 +1,7 @@
 <div class="main-container">
   <h3>Status</h3>
   <div class="example-button-row">
-    <button mat-icon-button color="warn" [disabled]="!isActive">
+    <button mat-icon-button color="warn" [@changeColor]="isActive">
       <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
     </button>
     API: {{ status }}
