@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AccessToken } from '../model/access-token';
 import { environment } from '../../environments/environment';
 import { Observable, Subject } from 'rxjs';
 import * as moment from 'moment';
+import { LoginResponse } from '../model/login-response';
 
 @Injectable()
 export class AutenticacaoService {
@@ -16,14 +16,14 @@ export class AutenticacaoService {
     this.restoreAccessToken();
   }
 
-  login(usuario: string, senha: string): Observable<AccessToken> {
-    return this.http.post<AccessToken>(
+  login(usuario: string, senha: string): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(
       `${environment.API_URL}${environment.API_VERSION}usuario/autenticar`,
       { Login: usuario, Senha: senha }
     );
   }
 
-  saveAccessToken(accessToken: AccessToken) {
+  saveAccessToken(accessToken: LoginResponse) {
     const expiresAt = moment().add(accessToken.expiresIn, 'second');
     this.accessToken = accessToken.accessToken;
     this.expiration = expiresAt;
@@ -33,7 +33,7 @@ export class AutenticacaoService {
   }
 
   isAutenticado() {
-    return typeof this.accessToken !== 'undefined' && this.accessToken !== '';
+    return typeof this.accessToken !== 'undefined' && this.accessToken !== null;
   }
 
   getAccessToken() {

@@ -1,19 +1,25 @@
 <mat-card class="example-card">
+    <form [formGroup]="autenticarForm" (ngSubmit)="autenticar()" novalidate>
   <mat-card-header>
     <mat-card-title>Login</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form>
       <div class="container">
         <div class="row">
           <mat-form-field class="col s6">
             <input
               matInput
               placeholder="Usuário"
-              [(ngModel)]="login"
-              name="login"
+              formControlName="login"
+              autofocus
               required
             />
+            <mat-error *ngIf="autenticarForm.get('login').hasError('required')">
+              Usuário é <strong>obrigatório</strong>
+            </mat-error>
+            <mat-error *ngIf="autenticarForm.get('login').hasError('pattern')">
+              Usuário é <strong>inválido</strong>
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="row">
@@ -21,18 +27,26 @@
             <input
               matInput
               placeholder="Senha"
-              [(ngModel)]="senha"
               type="password"
-              name="senha"
+              formControlName="senha"
+              (keyup.enter)="autenticar()"
               required
             />
+            <mat-error *ngIf="autenticarForm.get('senha').hasError('required')">
+              Senha é <strong>obrigatória</strong>
+            </mat-error>
+            <mat-error *ngIf="autenticarForm.get('senha').hasError('minlength')">
+              O tamanho mínimo é <strong>8 caracteres</strong>
+            </mat-error>
+            <mat-error *ngIf="autenticarForm.get('senha').hasError('serverError')">
+              {{ getServerErrors() }}
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
-    </form>
-    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button (click)="autenticar()" color="primary">Login</button>
+    <button mat-raised-button (click)="autenticar()" [disabled]="!autenticarForm.valid" color="primary">Entrar</button>
   </mat-card-actions>
+</form>
 </mat-card>
