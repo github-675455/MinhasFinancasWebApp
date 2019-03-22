@@ -13,6 +13,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AutenticacaoService } from './services/autenticacao.service';
 import { AutenticacaoInterceptor } from './interceptors/autenticacao-interceptor';
 import { AuthGuard } from './guards/auth-guard.service';
+import { SnackBarService } from './services/snack-bar.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,7 @@ import { AuthGuard } from './guards/auth-guard.service';
   ],
   providers: [
     AutenticacaoService,
+    SnackBarService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AutenticacaoInterceptor,

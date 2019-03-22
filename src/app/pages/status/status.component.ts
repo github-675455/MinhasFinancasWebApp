@@ -24,6 +24,7 @@ import { trigger, state, transition, animate, style } from '@angular/animations'
 export class StatusComponent implements OnInit, OnDestroy {
   status = '';
   isActive = 'off';
+  public carregando = true;
   private subscribe: Subscription;
 
   constructor(private http: HttpClient) {}
@@ -41,6 +42,7 @@ export class StatusComponent implements OnInit, OnDestroy {
   }
 
   atualizarStatus() {
+    this.carregando = true;
     this.http.get(`${environment.API_URL}health`).subscribe(
       (data: any) => {
         if (data.status === 'Healthy') {
@@ -54,6 +56,10 @@ export class StatusComponent implements OnInit, OnDestroy {
       (error: any) => {
         this.status = 'Indisponível';
         this.isActive = 'off';
+        this.carregando = false;
+      },
+      () => {
+        this.carregando = false;
       }
     );
   }
