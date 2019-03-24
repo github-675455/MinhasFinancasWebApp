@@ -32,6 +32,8 @@ export class AutenticacaoService {
         } else {
           observer.error(data.errors);
         }
+      }, (error) => {
+        observer.error(error);
       });
 
     });

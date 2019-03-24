@@ -54,7 +54,7 @@ export class AutenticacaoComponent implements OnInit {
   }
 
   autenticar() {
-    if (this.autenticarForm.invalid) {
+    if (this.autenticarForm.invalid || this.loading) {
       return;
     }
     this.loading = true;
@@ -74,7 +74,7 @@ export class AutenticacaoComponent implements OnInit {
 
             this.snackBarService.show('Autenticado com sucesso!', 'Ignorar');
         },
-        (errors: ApiError[]) => {
+        (errors: any) => {
           Utils.setErrorsInFormGroup(this.autenticarForm, errors);
         }
       ).add(() => {
