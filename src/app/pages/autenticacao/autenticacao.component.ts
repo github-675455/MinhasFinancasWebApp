@@ -1,16 +1,12 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 import { LoginResponse } from 'src/app/model/login-response';
 import { SubscriptionLike } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  AbstractControl
-} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ApiError } from 'src/app/model/api-error';
+import Utils from 'src/app/share/utils';
 
 @Component({
   selector: 'app-autenticacao',
@@ -20,7 +16,7 @@ import {
 export class AutenticacaoComponent implements OnInit {
   login: string;
   senha: string;
-  showSpinner: boolean;
+  loading: boolean;
   isAutenticado: boolean;
   returnUrl: string;
   subscriptions: SubscriptionLike[] = [];
@@ -43,13 +39,14 @@ export class AutenticacaoComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.activatedRoute.queryParamMap.subscribe(queryParams => {
       this.returnUrl = queryParams.get('returnUrl');
     });
   }
 
-  getServerErrors() {
-    return this.autenticarForm.get('senha').errors.serverError;
+  getServerErrors(field: string) {
+    return this.autenticarForm.get(field).errors.serverError;
   }
 
   autenticarOnEnter() {
@@ -60,7 +57,7 @@ export class AutenticacaoComponent implements OnInit {
     if (this.autenticarForm.invalid) {
       return;
     }
-
+    this.loading = true;
     this.autenticacaoService
       .login(
         this.autenticarForm.controls.login.value,
@@ -68,9 +65,7 @@ export class AutenticacaoComponent implements OnInit {
       )
       .subscribe(
         (data: LoginResponse) => {
-          this.autenticacaoService.saveAccessToken(data);
 
-          if (data.errors.length === 0) {
             if (this.returnUrl !== null) {
               this.router.navigateByUrl(`/${this.returnUrl}`);
             } else {
@@ -78,25 +73,12 @@ export class AutenticacaoComponent implements OnInit {
             }
 
             this.snackBarService.show('Autenticado com sucesso!', 'Ignorar');
-          } else {
-            data.errors.forEach(item => {
-              const formControl = this.autenticarForm.get('senha');
-              if (formControl) {
-                formControl.setErrors({
-                  serverError: item.description
-                }, {emitEvent: true});
-              }
-            });
-          }
         },
-        (error: HttpErrorResponse) => {
-          if (error.status === 401) {
-            this.snackBarService.show(
-              'Usuário ou senha incorretos!',
-              'Ignorar'
-            );
-          }
+        (errors: ApiError[]) => {
+          Utils.setErrorsInFormGroup(this.autenticarForm, errors);
         }
-      );
+      ).add(() => {
+        this.loading = false;
+      });
   }
 }

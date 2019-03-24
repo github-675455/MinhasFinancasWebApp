@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Observer } from 'rxjs';
 import * as moment from 'moment';
 import { LoginResponse } from '../model/login-response';
 
 @Injectable()
 export class AutenticacaoService {
-  private accessToken = '';
+  private accessToken = null;
   private expiration: moment.Moment;
 
   public assinaturaIsAutenticado = new Subject<boolean>();
@@ -17,10 +17,26 @@ export class AutenticacaoService {
   }
 
   login(usuario: string, senha: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(
-      `${environment.API_URL}${environment.API_VERSION}usuario/autenticar`,
-      { Login: usuario, Senha: senha }
-    );
+
+    const observable = Observable.create((observer: Observer<LoginResponse>) => {
+
+      this.http.post<LoginResponse>(
+        `${environment.API_URL}${environment.API_VERSION}usuario/autenticar`,
+        { Login: usuario, Senha: senha }
+      ).subscribe((data: LoginResponse) => {
+
+        if (data.errors.length === 0) {
+          this.saveAccessToken(data);
+          observer.next(data);
+          observer.complete();
+        } else {
+          observer.error(data.errors);
+        }
+      });
+
+    });
+
+    return observable;
   }
 
   saveAccessToken(accessToken: LoginResponse) {
@@ -47,7 +63,7 @@ export class AutenticacaoService {
   logout() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('expires_at');
-    this.accessToken = '';
+    this.accessToken = null;
     this.emitAutenticado(false);
   }
 
