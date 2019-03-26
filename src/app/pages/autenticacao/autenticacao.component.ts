@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 import { LoginResponse } from 'src/app/model/login-response';
-import { SubscriptionLike } from 'rxjs';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ApiError } from 'src/app/model/api-error';
 import Utils from 'src/app/share/utils';
 
 @Component({
@@ -19,7 +17,6 @@ export class AutenticacaoComponent implements OnInit {
   loading: boolean;
   isAutenticado: boolean;
   returnUrl: string;
-  subscriptions: SubscriptionLike[] = [];
   autenticarForm: FormGroup;
 
   constructor(

@@ -1,6 +1,8 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AutenticacaoService } from '../../services/autenticacao.service';
+import { AppComponent } from 'src/app/app.component';
+import { MatSidenav } from '@angular/material';
 
 @Component({
   selector: 'app-toolbar',
@@ -8,6 +10,8 @@ import { AutenticacaoService } from '../../services/autenticacao.service';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnDestroy {
+
+  @Input() sidenav: MatSidenav;
 
   public isAutenticado = false;
 
@@ -24,6 +28,10 @@ export class ToolbarComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.autenticacaoService.assinaturaIsAutenticado.unsubscribe();
+  }
+
+  toggleSideMenu() {
+    this.sidenav.toggle();
   }
 
   autenticar() {
