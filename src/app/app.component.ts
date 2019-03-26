@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +10,12 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 })
 export class AppComponent {
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(map(result => result.matches));
-
+  public isOpened = true;
   title = 'minhas-financas-webapp';
 
-  constructor(private breakpointObserver: BreakpointObserver){
+  isWeb$: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
 
+  constructor(private breakpointObserver: BreakpointObserver) {
+    this.isWeb$.subscribe(e => this.isOpened = e.matches);
   }
 }

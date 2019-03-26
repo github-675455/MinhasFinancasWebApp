@@ -1,8 +1,9 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <mat-icon class="example-icon">favorite</mat-icon>
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="toggleSideMenu()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
     <span class="fill-remaining-space"></span>
-    <mat-icon class="example-icon">delete</mat-icon>
     <button mat-button [matMenuTriggerFor]="menu"><mat-icon class="example-icon">account_circle</mat-icon></button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="autenticar()" *ngIf="!isAutenticado">Entrar</button>
