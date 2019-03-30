@@ -12,6 +12,7 @@ import { MatSidenav } from '@angular/material';
 export class ToolbarComponent implements OnDestroy {
 
   @Input() sidenav: MatSidenav;
+  @Input() app: AppComponent;
 
   public isAutenticado = false;
 
@@ -32,6 +33,10 @@ export class ToolbarComponent implements OnDestroy {
 
   toggleSideMenu() {
     this.sidenav.toggle();
+  }
+
+  hideMenu() {
+    return this.app.screenWidth > 840;
   }
 
   autenticar() {
