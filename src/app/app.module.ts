@@ -14,6 +14,8 @@ import { AutenticacaoService } from './services/autenticacao.service';
 import { AutenticacaoInterceptor } from './interceptors/autenticacao-interceptor';
 import { AuthGuard } from './guards/auth-guard.service';
 import { SnackBarService } from './services/snack-bar.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +28,8 @@ import { SnackBarService } from './services/snack-bar.service';
     LayoutsModule,
     PagesModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     AutenticacaoService,
