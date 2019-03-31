@@ -5,6 +5,7 @@ import { LoginResponse } from 'src/app/model/login-response';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Utils from 'src/app/share/utils';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-autenticacao',
@@ -24,7 +25,8 @@ export class AutenticacaoComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private autenticacaoService: AutenticacaoService,
     private snackBarService: SnackBarService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog
   ) {
     this.autenticarForm = this.formBuilder.group({
       login: [
@@ -46,14 +48,11 @@ export class AutenticacaoComponent implements OnInit {
     return this.autenticarForm.get(field).errors.serverError;
   }
 
-  autenticarOnEnter() {
-    this.autenticar();
-  }
-
   autenticar() {
     if (this.autenticarForm.invalid || this.loading) {
       return;
     }
+
     this.loading = true;
     this.autenticacaoService
       .login(

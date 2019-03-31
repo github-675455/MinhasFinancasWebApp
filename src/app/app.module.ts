@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +15,7 @@ import { AuthGuard } from './guards/auth-guard.service';
 import { SnackBarService } from './services/snack-bar.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { UpdateServiceWorkerService } from './services/update-service-worker.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +29,7 @@ import { environment } from '../environments/environment';
     PagesModule,
     FormsModule,
     HttpClientModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('sw-master.js', { enabled: environment.production })
   ],
   providers: [
     AutenticacaoService,
@@ -39,7 +39,8 @@ import { environment } from '../environments/environment';
       useClass: AutenticacaoInterceptor,
       multi: true
     },
-    AuthGuard
+    AuthGuard,
+    UpdateServiceWorkerService
   ],
   bootstrap: [AppComponent]
 })

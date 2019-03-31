@@ -7,6 +7,7 @@ import { LoginResponse } from '../model/login-response';
 
 @Injectable()
 export class AutenticacaoService {
+
   private accessToken = null;
   private expiration: moment.Moment;
 

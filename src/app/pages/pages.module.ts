@@ -8,22 +8,34 @@ import { ContaModalAddComponent } from './conta-modal-add/conta-modal-add.compon
 import { AutenticacaoComponent } from './autenticacao/autenticacao.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StatusComponent } from './status/status.component';
+import { AskUpdateComponent } from './ask-update/ask-update.component';
+import { MatDialogModule } from '@angular/material';
 
 @NgModule({
-  declarations: [ContaComponent, UsuarioComponent, ContaAddComponent, ContaModalAddComponent, AutenticacaoComponent, StatusComponent],
+  declarations: [
+    ContaComponent,
+    UsuarioComponent,
+    ContaAddComponent,
+    ContaModalAddComponent,
+    AutenticacaoComponent,
+    StatusComponent,
+    AskUpdateComponent
+  ],
   imports: [
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    MatDialogModule,
   ],
    exports: [
      ContaComponent,
      ContaModalAddComponent,
      UsuarioComponent,
      ContaAddComponent,
-     AutenticacaoComponent
+     AutenticacaoComponent,
+     AskUpdateComponent,
    ],
-   entryComponents: [ContaModalAddComponent]
+   entryComponents: [ContaModalAddComponent, AskUpdateComponent]
 })
 export class PagesModule { }
