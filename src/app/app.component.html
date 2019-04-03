@@ -2,7 +2,7 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport="false"
       role="navigation"
       [mode]="isMobileSidenavMode()" [opened]="isMobile()">
-   <app-menu [sidenav]="drawer"></app-menu>
+   <app-menu [sidenav]="drawer" [app]="this"></app-menu>
   </mat-sidenav>
   <mat-sidenav-content>
     <app-toolbar [sidenav]="drawer" [app]="this"></app-toolbar>

@@ -17,12 +17,7 @@ export class AppComponent {
   title = 'minhas-financas-webapp';
   public screenWidth: number;
 
-  isWeb$: Observable<BreakpointState> = this.breakpointObserver.observe(
-    Breakpoints.Handset
-  );
-
   constructor(private breakpointObserver: BreakpointObserver) {
-    this.isWeb$.subscribe(e => (this.isOpened = e.matches));
 
     this.screenWidth = window.innerWidth;
 
